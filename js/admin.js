@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function fetchUsers(page = 1, search = '') {
         try {
-            const response = await fetch(`http://localhost:3000/api/users?page=${page}&limit=10&search=${search}`, { headers });
+            const response = await fetch(`https://framecode-backend.onrender.com/api/users?page=${page}&limit=10&search=${search}`, { headers });
             const data = await response.json();
 
             totalUsersStat.textContent = data.total;
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function fetchAllReviews(page = 1, search = '') {
         try {
-            const response = await fetch(`http://localhost:3000/api/reviews/all/reviews?page=${page}&limit=10&search=${search}`, { headers });
+            const response = await fetch(`https://framecode-backend.onrender.com/api/reviews/all/reviews?page=${page}&limit=10&search=${search}`, { headers });
             const data = await response.json();
 
             totalReviewsStat.textContent = data.total;
@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const reviewId = e.target.dataset.id;
             if (confirm(`ADMIN: Tem certeza que deseja excluir a avaliação #${reviewId}?`)) {
                 try {
-                    const response = await fetch(`http://localhost:3000/api/reviews/${reviewId}`, {
+                    const response = await fetch(`https://framecode-backend.onrender.com/api/reviews/${reviewId}`, {
                         method: 'DELETE',
                         headers: headers
                     });

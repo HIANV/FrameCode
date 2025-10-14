@@ -44,7 +44,7 @@ if (loginForm) {
     if (!isValidEmail(email)) return showMessage('E‑mail inválido.', 'error');
 
     try {
-      const response = await fetch('http://localhost:3000/api/auth/login', {
+      const response = await fetch('https://framecode-backend.onrender.com/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -129,7 +129,7 @@ if (registerForm) {
 
     // 3. enviar dados para a API
     try {
-      const response = await fetch('http://localhost:3000/api/auth/register', {
+      const response = await fetch('https://framecode-backend.onrender.com/api/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     const token = localStorage.getItem('framecode_token') || sessionStorage.getItem('framecode_token');
     try {
-        const response = await fetch(`http://localhost:3000/api/reviews/me/${reviewId}`, {
+        const response = await fetch(`https://framecode-backend.onrender.com/api/reviews/me/${reviewId}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json', 'x-auth-token': token },
             body: JSON.stringify({ comment: newComment, rating: newRating })

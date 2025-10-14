@@ -58,7 +58,7 @@ function createMovieCard(movie) {
 function createUserCard(user) {
     const card = document.createElement('div');
     card.className = 'user-card';
-    const avatarSrc = user.avatar_url ? `http://localhost:3000${user.avatar_url}` : 'assets/user icon.png';
+    const avatarSrc = user.avatar_url ? `https://framecode-backend.onrender.com${user.avatar_url}` : 'assets/user icon.png';
 
     card.innerHTML = `
         <a href="profile.html?id=${user.id}">
@@ -191,7 +191,7 @@ async function renderReviews(page = 1) {
     }
 
     try {
-        const response = await fetch(`http://localhost:3000/api/reviews/${movieId}?page=${page}&limit=${reviewsPerPage}`, { headers });
+        const response = await fetch(`https://framecode-backend.onrender.com/api/reviews/${movieId}?page=${page}&limit=${reviewsPerPage}`, { headers });
         
         const data = await response.json();
         if (!response.ok) throw new Error('Não foi possível carregar as avaliações.');
@@ -210,7 +210,7 @@ async function renderReviews(page = 1) {
 
         reviewsForThisMovie.forEach(review => {
             sumOfRatings += parseFloat(review.rating);
-            const avatarSrc = review.avatar_url ? `http://localhost:3000${review.avatar_url}` : 'assets/user icon.png';
+            const avatarSrc = review.avatar_url ? `https://framecode-backend.onrender.com${review.avatar_url}` : 'assets/user icon.png';
             
             if (loggedInUser && loggedInUser.id == review.user_id) {
                 userHasAlreadyReviewed = true;
@@ -324,7 +324,7 @@ function updateReviewsPagination(currentPage, totalPages) {
             usersGridSection.style.display = 'none';
             return;
         }
-        const url = `http://localhost:3000/api/users?search=${encodeURIComponent(query)}`;
+        const url = `https://framecode-backend.onrender.com/api/users?search=${encodeURIComponent(query)}`;
         try {
             const response = await fetch(url, { headers: { 'x-auth-token': token } });
             if (!response.ok) throw new Error('Falha na busca de usuários');
@@ -374,7 +374,7 @@ function updateReviewsPagination(currentPage, totalPages) {
         const comment = document.getElementById('text').value.trim();
         if (rating === 0 || !comment) alert('Selecione uma nota e escreva sua resenha.');
         try {
-            const response = await fetch('http://localhost:3000/api/reviews', {
+            const response = await fetch('https://framecode-backend.onrender.com/api/reviews', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'x-auth-token': token },
                 body: JSON.stringify({ rating, comment, movieId: movieId, movieTitle: currentMovieData?.title || 'Título desconhecido' })
@@ -393,7 +393,7 @@ function updateReviewsPagination(currentPage, totalPages) {
     async function deleteReview(reviewId, isAdminDelete) {
         const confirmationText = isAdminDelete ? "ADMIN: Tem certeza que deseja excluir esta avaliação?" : "Tem certeza que deseja excluir sua avaliação?";
         if (!confirm(confirmationText)) return;
-        const url = isAdminDelete ? `http://localhost:3000/api/reviews/${reviewId}` : `http://localhost:3000/api/reviews/me/${reviewId}`;
+        const url = isAdminDelete ? `https://framecode-backend.onrender.com/api/reviews/${reviewId}` : `https://framecode-backend.onrender.com/api/reviews/me/${reviewId}`;
         try {
             const response = await fetch(url, {
                 method: 'DELETE',
@@ -427,7 +427,7 @@ function updateReviewsPagination(currentPage, totalPages) {
             return;
         }
         try {
-            const res = await fetch('http://localhost:3000/api/favorites/ids', { headers: { 'x-auth-token': token } });
+            const res = await fetch('https://framecode-backend.onrender.com/api/favorites/ids', { headers: { 'x-auth-token': token } });
             if (!res.ok) throw new Error('Não foi possível verificar os favoritos.');
             
             favoriteMovieIds = await res.json();
@@ -448,7 +448,7 @@ function updateReviewsPagination(currentPage, totalPages) {
         }
 
         const isFavorited = favoriteBtn.classList.contains('favorited');
-        const url = `http://localhost:3000/api/favorites/${isFavorited ? movieId : ''}`;
+        const url = `https://framecode-backend.onrender.com/api/favorites/${isFavorited ? movieId : ''}`;
         const method = isFavorited ? 'DELETE' : 'POST';
         
         try {
@@ -486,7 +486,7 @@ function updateReviewsPagination(currentPage, totalPages) {
             
             const reviewId = likeButton.dataset.reviewId;
             const isLiked = likeButton.classList.contains('liked');
-            const url = `http://localhost:3000/api/reviews/${reviewId}/like`;
+            const url = `https://framecode-backend.onrender.com/api/reviews/${reviewId}/like`;
             const method = isLiked ? 'DELETE' : 'POST';
 
             try {

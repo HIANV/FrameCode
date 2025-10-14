@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
   async function loadRecentActivities() {
       recentActivitiesEl.innerHTML = ""; 
       try {
-          const response = await fetch(`http://localhost:3000/api/reviews/user/${userIdToFetch}/recent`);
+          const response = await fetch(`https://framecode-backend.onrender.com/api/reviews/user/${userIdToFetch}/recent`);
           if (!response.ok) throw new Error('Falha ao carregar atividades recentes.');
           
           const recentReviews = await response.json();
@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   async function loadProfileData() {
-    const url = isMyProfile ? `http://localhost:3000/api/users/me` : `http://localhost:3000/api/users/${userIdToFetch}`;
+    const url = isMyProfile ? `https://framecode-backend.onrender.com/api/users/me` : `https://framecode-backend.onrender.com/api/users/${userIdToFetch}`;
     const options = isMyProfile ? { headers: { 'x-auth-token': token } } : {};
 
     try {
@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
       currentUserData = user;
 
       displayNameEl.textContent = user.name;
-      avatarImg.src = user.avatar_url ? `http://localhost:3000${user.avatar_url}` : 'assets/user icon.png';
+      avatarImg.src = user.avatar_url ? `https://framecode-backend.onrender.com${user.avatar_url}` : 'assets/user icon.png';
       
       if (isMyProfile) {
         editNameInput.value = user.name;
@@ -154,8 +154,8 @@ document.addEventListener('DOMContentLoaded', () => {
     async function loadUserReviews(page = 1) {
     myReviewsCurrentPage = page;
     const url = isMyProfile 
-        ? `http://localhost:3000/api/reviews/user/me?page=${page}&limit=${reviewsPerPage}` 
-        : `http://localhost:3000/api/reviews/user/${userIdToFetch}?page=${page}&limit=${reviewsPerPage}`;
+        ? `https://framecode-backend.onrender.com/api/reviews/user/me?page=${page}&limit=${reviewsPerPage}` 
+        : `https://framecode-backend.onrender.com/api/reviews/user/${userIdToFetch}?page=${page}&limit=${reviewsPerPage}`;
     
     const options = { headers: {} };
     if (token) {
@@ -249,8 +249,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   async function loadFavorites() {
       const url = isMyProfile 
-          ? `http://localhost:3000/api/favorites` 
-          : `http://localhost:3000/api/favorites/user/${userIdToFetch}`;
+          ? `https://framecode-backend.onrender.com/api/favorites` 
+          : `https://framecode-backend.onrender.com/api/favorites/user/${userIdToFetch}`;
       
       const options = isMyProfile ? { headers: { 'x-auth-token': token } } : {};
 
@@ -357,7 +357,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const formData = new FormData();
         formData.append('avatar', file);
         try {
-            const response = await fetch('http://localhost:3000/api/users/me/avatar', {
+            const response = await fetch('https://framecode-backend.onrender.com/api/users/me/avatar', {
                 method: 'POST',
                 headers: { 'x-auth-token': token },
                 body: formData,
@@ -365,8 +365,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
             // console.log("Resposta do servidor recebida:", data);
             if (!response.ok) throw new Error(data.message);
-            // console.log("URL final que será usado na imagem:", `http://localhost:3000${data.avatarUrl}`);
-            avatarImg.src = `http://localhost:3000${data.avatarUrl}`;
+            // console.log("URL final que será usado na imagem:", `https://framecode-backend.onrender.com${data.avatarUrl}`);
+            avatarImg.src = `https://framecode-backend.onrender.com${data.avatarUrl}`;
             alert('Foto de perfil atualizada com sucesso!');
         } catch (error) {
             // console.error("Ocorreu um erro no bloco 'catch':", error);
@@ -386,7 +386,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const confirmationText = isAdminDelete ? "ADMIN: Tem certeza que deseja excluir esta avaliação?" : "Tem certeza que deseja excluir sua avaliação?";
       if (!confirm(confirmationText)) return;
 
-      const url = isAdminDelete ? `http://localhost:3000/api/reviews/${reviewId}` : `http://localhost:3000/api/reviews/me/${reviewId}`;
+      const url = isAdminDelete ? `https://framecode-backend.onrender.com/api/reviews/${reviewId}` : `https://framecode-backend.onrender.com/api/reviews/me/${reviewId}`;
 
       try {
         const response = await fetch(url, {
@@ -453,7 +453,7 @@ document.addEventListener('DOMContentLoaded', () => {
         body.password = newPassword;
       }
       try {
-          const response = await fetch('http://localhost:3000/api/users/me', {
+          const response = await fetch('https://framecode-backend.onrender.com/api/users/me', {
               method: 'PUT',
               headers,
               body: JSON.stringify(body)
@@ -498,7 +498,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const reviewId = likeButton.dataset.reviewId;
             const isLiked = likeButton.classList.contains('liked');
-            const url = `http://localhost:3000/api/reviews/${reviewId}/like`;
+            const url = `https://framecode-backend.onrender.com/api/reviews/${reviewId}/like`;
             const method = isLiked ? 'DELETE' : 'POST';
 
             try {
